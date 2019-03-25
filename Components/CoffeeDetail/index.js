@@ -18,8 +18,8 @@ import {
 import styles from "./styles";
 
 //List
-import coffeeshops from "../CoffeeList/list";
-
+// import coffeeshops from "../CoffeeList/list";
+import { connect } from "react-redux";
 class CoffeeDetail extends Component {
   state = {
     drink: "Cappuccino",
@@ -39,8 +39,8 @@ class CoffeeDetail extends Component {
   };
 
   render() {
-    if (!coffeeshops) return <Content />;
-    const coffeeshop = coffeeshops[0];
+    if (!this.props.coffeeshops) return <Content />;
+    const coffeeshop = this.props.coffeeshops[0];
     return (
       <Content>
         <List>
@@ -92,5 +92,10 @@ class CoffeeDetail extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+    coffeeshops: state.coffeeReducer.coffeeShops
+  };
+};
 
-export default CoffeeDetail;
+export default connect(mapStateToProps)(CoffeeDetail);
